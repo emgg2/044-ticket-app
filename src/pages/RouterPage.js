@@ -18,61 +18,64 @@ import { CreateTicket } from './CreateTicket';
 import { Desk } from './Desk';
 
 const { Sider, Content } = Layout;
-const colorBgContainer = 'rgba(255, 255, 255, 0.2)';
+const colorBgContainer = 'rgba(255, 255, 255, 1)';
+
 
 export const RouterPage = () => {
   return (
-    <Router>
-    <Layout style={{ height: '100vh' }}>
-        <Sider>
-        <div className="logo" />
-        <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={['1']}
-            items={[
-            {
-                key: '1',
-                icon: <UserOutlined />,
-                label: <Link to='/getInto'>Get into</Link>,
-                //link: <Link to="/getInto" >Get Into</Link>
-            },
-            {
-                key: '2',
-                icon: <VideoCameraOutlined />,
-                label: <Link to='/queue'>Queue</Link>,
-            },
-            {
-                key: '3',
-                icon: <UploadOutlined />,
-                label: <Link to='/newTicket'>Create Ticket </Link>,
-            },
-            ]}
-        />
-        </Sider>
-        <Layout className="site-layout">
-   
-        <Content
-            style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
-            }}
-        >
+    <Router >
+        <Layout style={{ height: '100vh' }}>
+            <Sider
+                collapsedWidth='0'
+                breakpoint='md'
+            >
+            <div className="logo" />
+            <Menu
+                theme="dark"
+                mode="inline"
+                defaultSelectedKeys={['1']}
+                items={[
+                {
+                    key: '1',
+                    icon: <UserOutlined />,
+                    label: <Link to='/getInto'>Get into</Link>,
+                },
+                {
+                    key: '2',
+                    icon: <VideoCameraOutlined />,
+                    label: <Link to='/queue'>Queue</Link>,
+                },
+                {
+                    key: '3',
+                    icon: <UploadOutlined />,
+                    label: <Link to='/newTicket'>Create Ticket </Link>,
+                },
+                ]}
+            />
+            </Sider>
+            <Layout className="site-layout">
+    
+            <Content
+                style={{
+                margin: '24px 16px',
+                padding: 24,
+                minHeight: 280,
+                background: colorBgContainer,
+                }}
+            >
 
-                <Routes>
-                    <Route path='/getInto' element={ <GetInto /> } />
-                    <Route path='/queue' element={ <Queue /> } />
-                    <Route path='/newTicket' element={ <CreateTicket /> } />
-                    <Route path='/desk' element={ <Desk /> } />
-                    <Route path="*" element={ <GetInto /> } />
-            </Routes>
+                    <Routes>
+                        <Route path='/getInto' element={ <GetInto /> } />
+                        <Route path='/queue' element={ <Queue /> } />
+                        <Route path='/newTicket' element={ <CreateTicket /> } />
+                        <Route path='/desk' element={ <Desk /> } />
+                        <Route path="*" element={ <GetInto /> } />
+                    </Routes>
 
-            
-        </Content>
-        </Layout>
-    </Layout>    
-  </Router>
+                
+            </Content>
+            </Layout>
+        </Layout>    
+    </Router>
   )
 }

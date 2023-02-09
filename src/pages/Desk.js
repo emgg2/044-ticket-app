@@ -1,18 +1,37 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Divider, Row, Col, Typography } from 'antd';
 import { CloseCircleOutlined, RightOutlined } from '@ant-design/icons';
+import { useHideMenu } from '../hooks/useHideMenu';
+import { getUserStorage } from '../helpers/getUserStorage';
+import { useNavigate } from 'react-router-dom';
+import { deleteUserStorage } from '../helpers/deleteUserStorage';
 
 const { Title, Text } = Typography;
 
 export const Desk = () => {
 
+  const [ user ] = useState( getUserStorage() );
+
+  let navigate = useNavigate ();  
+  let replace = useNavigate()
+  useHideMenu(false);
+
   const exit = () => {
-    console.log("saliendo");
+     deleteUserStorage();     
+     navigate('/getInto');  
   }
 
   const getNextTicket = () => {
     console.log("getting new ticket");
   }
+
+
+  useEffect(() => {
+    if ( !user.agent || !user.desk ) {
+      console.log(" no hay usuario");
+      replace('/getInto');
+    }
+  }, [ replace, user.agent, user.desk ])
 
 
   return (
@@ -22,9 +41,9 @@ export const Desk = () => {
 
       <Row>
         <Col span={20}>
-          <Title level={2}> Eva </Title>
-          <Text>You are working on desk</Text>
-          <Text type='success'> 5 </Text>
+          <Title level={2}> { user.agent } </Title>
+          <Text>You are working on desk: </Text>
+          <Text type='success'> { user.desk } </Text>
 
         </Col>
         <Col 

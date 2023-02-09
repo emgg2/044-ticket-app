@@ -1,23 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Divider, Form, Input, InputNumber, Typography } from 'antd';
 import { SaveOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useHideMenu } from '../hooks/useHideMenu';
+import { getUserStorage } from '../helpers/getUserStorage';
 
 const { Title, Text } = Typography;
 
 
 export const GetInto = () => {
 
-  const navigate = useNavigate ();
+  let navigate = useNavigate ();
+  const [ user ] = useState( getUserStorage() );
 
-  const onFinish = (values) => {
-    console.log('Success:', values);
+
+  useHideMenu ( false );
+
+
+  const onFinish = ({ agent, desk }) => {   
+    localStorage.setItem('agent', agent );
+    localStorage.setItem('desk', desk );
     navigate('/desk');
   };
   
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
+
+  if ( user.agent && user.desk )  navigate('/desk');
 
 
   return (
@@ -39,7 +49,7 @@ export const GetInto = () => {
       >
           <Form.Item
             label="Agent name"
-            name="Agent"
+            name="agent"
             rules={[{ required: true, message: 'Please input your name!' }]}
           >
             <Input />
